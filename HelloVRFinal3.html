@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Hello World VR</title>
+    <meta name="description" content="First example, basic hello world for VR using A-frame WebXR.">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="gray-translucent" />
+
+    <!-- A-frame minimized JavaScript version component entity system -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <!-- A-frame Superframe layout component for conveniently placing multiple objects, in our case a circle -->
+    <script src="https://unpkg.com/aframe-layout-component@5.3.0/dist/aframe-layout-component.min.js"></script>
+    <!-- A-frame Supermedium environment component for creating easy VR environments quickly -->
+    <script src="https://unpkg.com/aframe-environment-component@1.3.1/dist/aframe-environment-component.min.js"></script>
+    <!-- A-frame Extras provides movement controls in VR and many other useful things -->
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <!-- n5ro animation-mixer.js -->
+    <script src="https://github.com/n5ro/aframe-extras/blob/master/src/loaders/animation-mixer.js"></script>
+
+    <script type="text/javascript">
+
+      // Sound effect for objects
+      var sparkle = new Audio('assets/mp3/magical_sparkle.mp3');
+      var swoosh = new Audio('assets/wav/swoosh.wav');
+
+      var envToggle = true;
+
+      // Click listener for do on click
+      AFRAME.registerComponent('click-listener', {
+        init: function () {
+
+            this.el.addEventListener('click', function (evt) {
+
+                // remove clicked object from view
+                //this.setAttribute('visible', false);
+      
+            });
+        }
+      });
+
+
+      // Handles activating and toggle on-off audio control for browser
+      AFRAME.registerComponent('audiohandler', {
+        init:function() {
+            let playing = false;
+            let audio = document.querySelector("#playAudio");
+            this.el.addEventListener('click', () => {
+
+                if(!playing) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }
+                playing = !playing;
+            });
+        }
+      });
+
+      function playSound() {
+
+        //alert("TEST Sound 1 playing functional!!!");
+        sparkle.play();
+        
+      }
+
+      // Make our selected object invisible by name and play a sound
+      function disappear(objectName) {
+
+        document.getElementById(objectName).setAttribute('visible', false);
+        sparkle.play();
+
+      }
+
+      // Make all our spinning objects visible again (even if they are still visible), when cylinder is selected, and play a sound
+      function reappear() {
+
+        document.getElementById('cone').setAttribute('visible', true);
+        document.getElementById('dodecahedron').setAttribute('visible', true);
+        document.getElementById('icosahedron').setAttribute('visible', true);
+        document.getElementById('octahedron').setAttribute('visible', true);
+        document.getElementById('tetrahedron').setAttribute('visible', true);
+        document.getElementById('torus').setAttribute('visible', true);
+        document.getElementById('torusKnot').setAttribute('visible', true);
+        sparkle.play();
+
+      }
+
+      // Toggle our environment from desertland to parkland, when sphere is selected
+      function ChgEnv() {
+
+        if (envToggle !== false)  { 
+
+          document.getElementById('desertland').setAttribute('active', false);
+          document.getElementById('desertland').setAttribute('visible', false);
+          document.getElementById('parkland').setAttribute('active', true);
+          document.getElementById('parkland').setAttribute('visible', true);
+          document.getElementById('Cactus1').setAttribute('visible', false);
+          document.getElementById('Cactus2').setAttribute('visible', false);
+          document.getElementById('ParkTree1').setAttribute('visible', true);
+          document.getElementById('ParkTree2').setAttribute('visible', true);
+
+        } else {
+
+          document.getElementById('desertland').setAttribute('active', true);
+          document.getElementById('desertland').setAttribute('visible', true);
+          document.getElementById('parkland').setAttribute('active', false);
+          document.getElementById('parkland').setAttribute('visible', false);
+          document.getElementById('Cactus1').setAttribute('visible', true);
+          document.getElementById('Cactus2').setAttribute('visible', true);
+          document.getElementById('ParkTree1').setAttribute('visible', false);
+          document.getElementById('ParkTree2').setAttribute('visible', false);
+
+        }
+
+        swoosh.play();
+        envToggle = !envToggle;
+      }
+
+    </script>
+
+  </head>
+  <body>
+    <!-- Used for playing our musical tune  --> 
+    <audio id="playAudio" autoplay loop>
+        <!-- If you replace music, make sure it's open source (no copyright), or you have digital rights to it. Credit creator.  -->
+        <source src="assets/mp3/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Used to create a scene, like on the stage of a play, but in 360 °  -->
+    <a-scene shadow="type: pcfsoft" renderer="antialias: true; highRefreshRate: true;" shadow="autoUpdate: false" raycaster="objects: .clickable, .cube, .cylinder, .sphere, .cone, .dodecahedron, .icosahedron, .octahedron, .tetrahedron, .torus, .torusKnot">
+
+      <a-assets>
+
+        <!-- this is a mixin which provides for a looping spin on the y-axis -->
+        <a-mixin id="spin-y" animation="property: rotation; to: 0 360 0; loop: true; dur: 15000; easing: linear; dir: alternate"></a-mixin>
+  
+        <a-mixin id="spin-x" animation="property: rotation; to: 360 0 0; loop: true; dur: 15000; easing: linear"></a-mixin>
+        <a-mixin id="spin-z" animation="property: rotation; to: 0 0 360; loop: true; dur: 15000; easing: linear"></a-mixin>
+
+        <!-- Music box texture applied to cube  -->
+        <img crossorigin="anonymous" id="musicbox" src="assets/img/music.png">
+
+        <!-- Cactus models -3D GltF models -->
+        <a-asset-item id="cactusShort" src="assets/gltf/cactusShort.glb"></a-asset-item>
+        <a-asset-item id="cactusTall" src="assets/gltf/cactusTall.glb"></a-asset-item>
+
+        <!-- Tree models -3D GltF models -->
+        <a-asset-item id="Tree1" src="assets/gltf/NormalTree_1.glb"></a-asset-item>
+        <a-asset-item id="Tree2" src="assets/gltf/NormalTree_2.glb"></a-asset-item>
+
+      </a-assets>
+
+      <a-entity id="mouseCursor" cursor="rayOrigin: mouse"></a-entity>
+
+      <!-- Basic movement in VR with lowpoly hands and raycaster laser pointer for selection -->
+      <a-entity id="cameraRig" movement-controls >
+        <!-- camera  -also added an animation to fly in for dramatic visual effect at start only -->
+        <a-entity id="head" camera="active: true" position="0 1.6 0"  look-controls="pointerLockEnabled: false" animation="property: position; dur: 15000; from: 0 10 50; to: 0 1.6 0; easing: easeInOutSine; loop: false; direction: normal"></a-entity>
+              <!-- Left Controller Hand -->
+              <a-entity id="leftHand" hand-controls="hand: left; handModelStyle: lowPoly; color: #15ACCF" visible="true"></a-entity>
+              <!-- Right Controller Hand -->
+              <a-entity id="rightHand" hand-controls="hand: right; handModelStyle: lowPoly; color: #15ACCF" laser-controls raycaster="showLine: true; far: 10; interval: 0; objects: .clickable, a-link;" line="color: #7cfc00; opacity: 0.5" visible="true"></a-entity>
+      </a-entity>
+
+      <!-- 3D primitive objects inside our scene -->
+
+      <!-- A-frame layout component creates a circle around a position with a radius on the x-z plane (notice no positions are defined on the objects within the layout </entity>) --> 
+      <a-entity layout="type: circle; radius: 3.5; plane: xz;" position="0 1.6 -5" mixin="spin-y" animation__2="property: position; from: 0 1.6 -5 ; to: 0 1 -5; dir: alternate; loop: true">
+
+        <!-- Scale was set to half, .5 for each entity and opacity was also set to half, giving each object a transparent see through look -->
+        <a-entity id="cone" class="clickable" geometry="primitive: cone"  rotation="0 45 0" scale=".5 .5 .5" material="color: #1DA7C3; opacity: 1" mixin="spin-x" shadow="receive: false" onclick="disappear('cone');"></a-entity>
+        <a-entity id="dodecahedron" class="clickable" geometry="primitive: dodecahedron; radius: 0.75" rotation="0 45 0" scale=".5 .5 .5" material="color: #7D347C; opacity: 1" mixin="spin-y" shadow="receive: false" onclick="disappear('dodecahedron');"></a-entity>
+        <a-entity id="icosahedron" class="clickable" geometry="primitive: icosahedron; radius: 0.75" rotation="0 45 0" scale=".5 .5 .5" material="color: #A7346D; opacity: 1" mixin="spin-y" shadow="receive: false" onclick="disappear('icosahedron');"></a-entity>
+        <a-entity id="octahedron" class="clickable" geometry="primitive: octahedron; radius: 0.75" rotation="0 45 0" scale=".5 .5 .5" material="color: #D19418; opacity: 1" mixin="spin-y" shadow="receive: false" onclick="disappear('octahedron');"></a-entity>
+        <a-entity id="tetrahedron" class="clickable" geometry="primitive: tetrahedron; radius: 0.75" rotation="0 45 0" scale=".5 .5 .5" material="color: #A4B615; opacity: 1" mixin="spin-z" shadow="receive: false" onclick="disappear('tetrahedron');"></a-entity>
+        <a-entity id="torus" class="clickable" geometry="primitive: torus; radius: 0.75"  rotation="0 45 0" scale=".5 .5 .5" material="color: #82B32E; opacity: 1" mixin="spin-y" shadow="receive: false" onclick="disappear('torus');"></a-entity>
+        <a-entity id="torusKnot" class="clickable" geometry="primitive: torusKnot; radius: 0.75; radiusTubular: 0.165" rotation="0 45 0" scale=".5 .5 .5" material="color: #E38097; opacity: 1" mixin="spin-y" shadow="receive: false" onclick="disappear('torusKnot');"></a-entity>
+      
+      <!-- This is the close block for layout -->
+      </a-entity>
+
+      <a-entity id="cube" class="clickable" geometry="primitive: box" position="-1 0.5 -3" rotation="0 45 0" material="src: #musicbox" shadow="receive: true" audiohandler></a-entity>
+      <a-entity id="sphere" class="clickable" geometry="primitive: sphere" position="0 1.25 -5" radius="1.25" material="color: #EE4266" shadow="receive: true" onclick="ChgEnv();" click-listener></a-entity>
+      <a-entity id="cylinder" class="clickable" geometry="primitive: cylinder; height: 1.5; radius: 0.5" position="1 0.75 -3" material="color: #FC814A" shadow="receive: true" onclick="reappear();" click-listener></a-entity>
+
+      <!-- A light in the scene with shadow camera casting  -->
+      <a-entity light="castShadow: true; shadowCameraVisible: false; shadowCameraTop: 10; shadowCameraBottom: -10; shadowCameraLeft: -10; shadowCameraRight: 10;  shadowCameraFar: 20" position="5.0091 13.0395 4.96481"></a-entity>
+
+      <!-- Our Environment  -->
+      <a-entity id="parkland" environment="preset: forest; dressingAmount: 250; dressingUniformScale: true; dressingColor: #248728; ground: hills; groundTexture: none; groundColor: #34711C; groundColor2: #319D06; grid: none; gridColor: #81F995; skyType: gradient; skyColor: #A4CFFA; horizonColor: #95C8FA; fog: .75" shadow="receive: true" active="false" visible="false"></a-entity>
+
+      <!-- Desert -Arizona like environment -->
+      <a-entity id="desertland" environment="preset: yavapai; dressingAmount: 150; skyType: gradient; skyColor: #4BA3F8; horizonColor: #96C8F8; fog: .75; flatShading: false" shadow="receive: true" active="true" visible="true"></a-entity>
+
+      <!-- Place a couple of simple cactus models to enhance the scene -->
+      <a-entity id="Cactus1" gltf-model="#cactusShort" position="-3.43339 -0.29994 -9.49947" scale="2 6 1" shadow="receive: false"></a-entity>
+      <a-entity id="Cactus2" gltf-model="#cactusTall" position="5.8929 -0.12904 -5.78972" scale="2 2 1" shadow="receive: false"></a-entity>
+
+      <!-- Place a couple of simple tree models to enhance the scene -->
+      <a-entity id="ParkTree1" gltf-model="#Tree1" position="0.95027 -0.29994 -9.81891" scale=".01 .01 .01" shadow="receive: false" visible="false"></a-entity>
+      <a-entity id="ParkTree2" gltf-model="#Tree2" position="4.3576 -0.12904 -5.78972" rotation="0 -73.934 0" scale=".01 .01 .01" shadow="receive: false" visible="false"></a-entity>
+
+    </a-scene>
+  </body>
+</html>
