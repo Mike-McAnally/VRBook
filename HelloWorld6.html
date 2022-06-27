@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Hello World VR</title>
+    <meta name="description" content="First example, basic hello world for VR using A-frame WebXR.">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="gray-translucent" />
+
+    <!-- A-frame minimized JavaScript version component entity system -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-layout-component@4.3.1/dist/aframe-layout-component.min.js"></script>
+
+  </head>
+  <body>
+    <!-- Used to create a scene, like on the stage of a play, but in 360 °  -->
+    <a-scene>
+
+      <a-assets>
+        <img crossorigin="anonymous" id="texture1" src="assets/img/landsky.jpg">
+      </a-assets>
+
+      <!-- 3D primitive objects inside our scene, positioned x, y, z and rotation, and color -->
+      <!-- from our default created camera at view point 0, 1.6, 0 -which is 1.6 meters about the ground -->
+
+      <!-- A-frame layout component creates a circle around a position with a radius on the x-z plane (notice no positions are defined on the objects within the layout </entity>) --> 
+      <a-entity layout="type: circle; radius: 3.5; plane: xz;" position="0 1.6 -5" >
+
+        <!-- Scale was set to half, .5 for each entity and opacity was also set to half, giving each object a transparent see through look -->
+        <a-entity id="cone" geometry="primitive: cone"  rotation="0 45 0" scale=".5 .5 .5" material="color: #1DA7C3; opacity: .5"></a-entity>
+        <a-entity id="dodecahedron" geometry="primitive: dodecahedron; radius: 0.75" rotation="0 45 0" scale=".5 .5 .5" material="color: #7D347C; opacity: .5"></a-entity>
+        <a-entity id="icosahedron" geometry="primitive: icosahedron; radius: 0.75" rotation="0 45 0" scale=".5 .5 .5" material="color: #A7346D; opacity: .5"></a-entity>
+        <a-entity id="octahedron" geometry="primitive: octahedron; radius: 0.75" rotation="0 45 0" scale=".5 .5 .5" material="color: #D19418; opacity: .5"></a-entity>
+        <a-entity id="tetrahedron" geometry="primitive: tetrahedron; radius: 0.75" rotation="0 45 0" scale=".5 .5 .5" material="color: #A4B615; opacity: .5"></a-entity>
+        <a-entity id="torus" geometry="primitive: torus; radius: 0.75"  rotation="0 45 0" scale=".5 .5 .5" material="color: #82B32E; opacity: .5"></a-entity>
+        <a-entity id="torusKnot" geometry="primitive: torusKnot; radius: 0.75" rotation="0 45 0" scale=".5 .5 .5" material="color: #E38097; opacity: .5"></a-entity>
+      
+      <!-- This is the close block for layout -->
+      </a-entity>
+
+      <a-entity id="cube" geometry="primitive: box" position="-1 0.5 -3" rotation="0 45 0" material="color: #FC814A" ></a-entity>
+      <a-entity id="sphere" geometry="primitive: sphere" position="0 1.25 -5" radius="1.25" material="color: #EE4266" ></a-entity>
+      <a-entity id="cylinder" geometry="primitive: cylinder; height: 1.5; radius: 0.5" position="1 0.75 -3" material="color: #2A1E5C" ></a-entity>
+
+      <!-- The plane upon which the objects are virtually positioned -->
+      <a-plane id="plane" position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#337357"></a-plane>
+
+      <!-- Other planar (flat) 2D objects -->
+      <a-entity id="triangle" geometry="primitive: triangle" position="-1.8 4.01656 -4.6" rotation="0 45 0" material="color: #F3FFB6; opacity: .5"></a-entity>
+      <a-entity id="ring" geometry="primitive: ring" position="-1.8 2.2 -4.6" rotation="0 45 0" material="color: #F3FFB6; opacity: .5"></a-entity>
+      <a-entity id="circle" geometry="primitive: circle; radius: 0.75" position="-2 2.2 -5.08638" rotation="-43 45 -20" material="color: #CD9044; opacity: .5"></a-entity>
+      
+      <!-- We are inside a gigantic hollow sphere, looking at its inner surface painted with sky and land  -->
+      <a-sky id="sky" material="src: #texture1"></a-sky>
+    </a-scene>
+  </body>
+</html>

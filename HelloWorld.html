@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Hello World VR</title>
+    <meta name="description" content="First example, basic hello world for VR using A-frame WebXR.">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="gray-translucent" />
+
+    <!-- A-frame minimized JavaScript version component entity system -->
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+
+  </head>
+  <body>
+    <!-- Used to create a scene, like on the stage of a play, but in 360 °  -->
+    <a-scene>
+
+      <!-- 3D primitive objects inside our scene, positioned x, y, z and rotation, and color -->
+      <!-- from our default created camera at view point 0, 1.6, 0 -which is 1.6 meters about the ground -->
+      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+
+      <!-- The plane upon which the objects are virtually positioned -->
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      
+      <!-- We are inside a gigantic hollow sphere, looking at its inner surface painted a light color of gray  -->
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+  </body>
+</html>
