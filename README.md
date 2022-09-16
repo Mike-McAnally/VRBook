@@ -1,6 +1,6 @@
 # VRBook
 
-Thank you all!  The intent of the book: to bring more people into understanding of WebXR, the Open-source Metaverse, Social VR, etc.  Imagine the climate change implications if people could spacially interact with each other across large and short distances, without a significant negative carbon impact on our planet.
+Thank you all!  The intent of the book: to bring more people into understanding of WebXR, the Open-source Metaverse, Social VR, etc.  Imagine the climate change implications if people could spacially interact with each other across large and short distances, without a significant negative carbon impact on our planet!
 
 PDF download of Free VR Book, "Social VR for the Metaverse with A-Frame WebXR", By Michael McAnally, © Copyright September 14, 2022.
 
