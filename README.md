@@ -1,5 +1,10 @@
 # VRBook
-Source code and assets for VR Book
+
+PDF download of Free VR Book, "Social VR for the Metaverse with A-Frame WebXR", By Michael McAnally, © Copyright September 14, 2022.
+
+https://rocketvirtual.com/VRbook/OpenSourceSocailVR.pdf
+
+Source code and assets for VR Book Chapter 1-4, other repositories for remaining chapters...
 
 RocketVirtual Working Code Links:
 
