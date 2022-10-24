@@ -1,3 +1,9 @@
+
+
+
+![CoverSocialVRBook](https://user-images.githubusercontent.com/21044198/197547839-a75b6ec0-30e3-4a70-9838-8a2d2bdd8227.jpg)
+
+
 # VRBook
 
 Thank you all!  The intent of the book: to bring more people into understanding of WebXR, the Open-source Metaverse, Social VR, etc.  Imagine the climate change implications if people could spacially interact with each other across large and short distances, without a significant negative carbon impact on our planet!
